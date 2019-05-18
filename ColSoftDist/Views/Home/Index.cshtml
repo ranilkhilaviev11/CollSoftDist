@@ -1,0 +1,49 @@
+﻿
+@model ColSoftDist.Models.FileIndexViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Коллективная дистрибуция ПО";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Все файлы</h3>
+<div class="soft-content row">
+    @foreach (var file in Model.Files)
+    {
+        
+
+    <div class="soft-file col-md-2 ">
+        <a style="text-decoration: none; color: black; text-align: center" asp-controller="Details" asp-action="Index" asp-route-id="@file.Id">
+            <div class="front">
+                <div class="soft-icon">
+                    <image class="img-fluid img-thumbnail" src="@Url.Content(file.Icon)" style="background-color: transparent;">
+
+                    </image>
+
+                </div>
+
+                <p style="margin-top: 10px; font-size: 15px">@file.Name</p>
+
+            </div>
+        </a>
+        <div class="back">
+            <a style="text-decoration: none; color: ghostwhite; text-align: center" asp-controller="Details" asp-action="Index" asp-route-id="@file.Id">
+                <div class="back-content" style="height: 75%;">
+                    <h4>@file.Name</h4><br />
+                    <h5>@file.About</h5>
+                </div>
+                </a>
+            <div class="row" style="width: 100%; bottom: 0; top: auto;" >
+                
+                <a asp-controller="Home" asp-action="OnDeleteAsync" asp-route-id="@file.Id" class="fast-delete btn-custom">Удалить</a>
+                
+                <a asp-controller="Details" asp-action="GetVirtualFile" asp-route-fileName="@file.Name" class="fast-download btn-custom">Скачать</a>
+            </div>
+        </div>
+    </div>
+        
+    }
+</div>
+

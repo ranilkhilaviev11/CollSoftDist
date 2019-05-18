@@ -1,0 +1,38 @@
+﻿@model ColSoftDist.Models.FileDetailViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="body-content">
+    <div class="nav-line">
+        <a asp-controller="Home" asp-action="Index" aria-disabled="false" style="color: black;">Главная</a>
+        /
+        <a aria-disabled="true" style="text-decoration: none; color: lightslategrey;">@Model.Name</a>
+    </div>
+    <div class="row file-detail-container">
+        <div class="col-md-4 file-detail-content">
+            <div class="file-detail">
+                <img src="@Model.Url" alt="@Model.Name" />
+            </div>
+        </div>
+        <div class="col-md-4 file-detail-meta">
+            <span class="file-detail-name">@Model.Name</span>
+            <div class="file-detail-description">
+                <span class="description">Описание:</span>
+                <p style="margin-top: 5px;">
+                    @Model.About
+                </p>
+                <div style="text-align:right;">
+                    <a asp-controller="Details" asp-action="GetVirtualFile" asp-route-fileName="@Model.Name" class="download-btn">
+                        Скачать
+                        
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

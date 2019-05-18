@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DAL.Models
 {
@@ -13,6 +9,6 @@ namespace DAL.Models
         public string Path { get; set; }
         public string Icon { get; set; }
         public string About { get; set; } 
-        public virtual IEnumerable<Post> Posts { get; set; }
+        public virtual IEnumerable<Role> Roles { get; set; }
     }
 }

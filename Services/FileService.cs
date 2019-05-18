@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DAL;
+﻿using DAL;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -17,7 +17,7 @@ namespace Services
         public IEnumerable<FileModel> GetAll()
         {
             return _ctx.Files
-                .Include(file => file.Posts);
+                .Include(file => file.Roles);
         }
 
         public FileModel GetById(int id)
@@ -29,15 +29,26 @@ namespace Services
         public IEnumerable<FileModel> GetByPost(string post)
         {
            return GetAll().Where(file 
-               => file.Posts
+               => file.Roles
                .Any(p => p.Name == post));
         }
-        public async Task SetFile(string name, string path, string icon)
+
+        public async Task DeleteFile(int id)
+        {
+            var file = _ctx.Files.Where(f => f.Id == id).First();
+            if (file != null)
+            {
+                _ctx.Files.Remove(file);
+                await _ctx.SaveChangesAsync();
+            }
+        }
+
+        public async Task SetFile(string name,  string about, string path, string icon)
         {
             var file = new FileModel
             {
                 Name = name,
-                
+                About = about,
                 Path = path,
                 Icon = icon
             };

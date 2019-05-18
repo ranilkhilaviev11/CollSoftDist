@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColSoftDist", "..\ColSoftDist\ColSoftDist.csproj", "{53876F70-5F03-4267-A640-05D081D8EA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColSoftDist", "ColSoftDist\ColSoftDist.csproj", "{53876F70-5F03-4267-A640-05D081D8EA40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E866CAB-0A05-486A-97B2-0AA44601184A} = {0E866CAB-0A05-486A-97B2-0AA44601184A}
+		{601F46FC-5DFF-43BB-A309-26A7DF83970C} = {601F46FC-5DFF-43BB-A309-26A7DF83970C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{601F46FC-5DFF-43BB-A309-26A7DF83970C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{0E866CAB-0A05-486A-97B2-0AA44601184A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{0E866CAB-0A05-486A-97B2-0AA44601184A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

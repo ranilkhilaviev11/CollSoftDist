@@ -1,0 +1,42 @@
+﻿@model ColSoftDist.Models.LoginViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Вход";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="body-content">
+    <div class="login-content">
+        <h2>Вход в приложение</h2>
+        <form method="post" asp-controller="Account" asp-action="Login"
+              asp-route-returnUrl="@Model.ReturnUrl">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <div class="wrap-label">
+                    <label asp-for="Email" id="lbl-login-email"></label><br />
+                    <p class="iconicfill-pen-alt2"></p>
+                </div>
+                <input asp-for="Email" id="inp-login-email" class="form-control" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div style=" margin-top: 20px;">
+                <div class="wrap-label">
+                    <label asp-for="Password" id="lbl-login-pass"></label><br />
+                    <p class="iconicfill-pen-alt2"></p>
+                </div>
+                <input asp-for="Password" id="inp-login-pass" class="form-control" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="row" style="margin: 10px 15px;">
+                <label asp-for="RememberMe"></label>
+                <input asp-for="RememberMe" style="margin-left: 10px;" />
+            </div>
+            <div style="margin-top: 20px;">
+
+                <button class="btn-custom" type="submit" style="width: 25%; padding-left:3.7em; right: 0;">Войти</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,22 +1,19 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
-        
+        public DbSet<FileModel> Files { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
-        public DbSet<FileModel> Files { get; set; }
-        public DbSet<Post> Posts { get; set; }
     }
-    
+
 }
