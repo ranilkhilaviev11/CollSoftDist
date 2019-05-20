@@ -19,7 +19,7 @@
     border-radius: 0.6em;
     color: ghostwhite;
     cursor: pointer;
-    display: flex;
+    
     align-self: center;
     font-size: 1rem;
     font-weight: 400;
@@ -155,7 +155,7 @@
     height: 15%;
     text-anchor: middle;
     margin: 5px;
-    padding-left: 1.9em;
+    
 }
 
 .fast-download {

@@ -32,12 +32,19 @@
                             </div>
                             <input asp-for="About" class="form-control" id="inp_about"  />
                         </div>
-                        <div style="right: 0;">
+                        <div class="row">
 
-                            <label class="btn-custom" style="width: 100px; padding-left: 2.8em; padding-right: 2.8em;">
-                                Обзор
-                                <input type="file" name="uploadedFile" accept=".rar, .zip, .7z" style="display: none" id="upload" />
+                            <label class="btn-custom" style="width: 100px; margin-right: 20px; margin-left: 20px;">Обзор<input type="file" name="uploadedFile" accept=".rar, .zip, .7z" style="display: none" id="upload" />
                             </label>
+                            <label>
+                                Менеджер
+                            </label>
+                            <input type="checkbox" />
+                            <label style="margin-left: 15px;">
+                                Штатный сотрудник
+                            </label>
+                            <input type="checkbox" />
+
                         </div>
                         <div class="submit" style="right: 0;">
                             <button type="submit" class="btn-custom"style="padding-left:2.8em; padding-right: 2.8em;">
