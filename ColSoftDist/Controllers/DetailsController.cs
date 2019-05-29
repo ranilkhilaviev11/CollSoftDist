@@ -27,8 +27,8 @@ namespace ColSoftDist.Controllers
                 Id = file.Id,
                 Name = file.Name,
                 Url = file.Icon,
-                About = file.About,
-                Posts = file.Roles.Select(t => t.Name).ToList()
+                About = file.About
+               // Posts = file.Roles.Select(t => t.Name).ToList()
             };
             return View(model);
         }

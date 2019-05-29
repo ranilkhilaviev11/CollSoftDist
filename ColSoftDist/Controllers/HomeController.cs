@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using DAL.Models;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace ColSoftDist.Controllers
 {
@@ -15,32 +19,54 @@ namespace ColSoftDist.Controllers
         IHostingEnvironment _appEnvironment;
         private readonly IFile _fileService;
         private IHostingEnvironment _hostingEnv;
+        UserManager<User> _userManager;
 
-        public HomeController(ApplicationContext context, IHostingEnvironment appEnvironment, IFile fileService, IHostingEnvironment hostingEnv)
+        public HomeController(ApplicationContext context, IHostingEnvironment appEnvironment, IFile fileService, IHostingEnvironment hostingEnv, UserManager<User> userManager)
         {
             _context = context;
             _appEnvironment = appEnvironment;
             _fileService = fileService;
             _hostingEnv = hostingEnv;
+            _userManager = userManager;
+
         }
 
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
+            var userId = User.FindFirstValue(ClaimTypes.Name);
+            var user = await _userManager.FindByEmailAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.First();
             if (User.Identity.IsAuthenticated)
             {
-                var fileList = _fileService.GetAll();
-
-                var model = new FileIndexViewModel()
+                if (role == "Manager" || role == "Admin")
                 {
-                    Files = fileList,
-                    SearchQuery = ""
+                    IEnumerable<FileModel> fileList = _fileService.GetAll();
+                    var model = new FileIndexViewModel()
+                    {
 
-                };
-                return View(model);
+                        Files = fileList
+
+                    };
+                    return View(model);
+                }
+                else if (role == "Staff")
+                {
+                    IEnumerable<FileModel> fileList = _fileService.GetByRole("Staff");
+                    var model = new FileIndexViewModel()
+                    {
+
+                        Files = fileList
+
+                    };
+                    return View(model);
+                }
+                else { return NoContent(); }
+
             }
+
             else { return RedirectToAction("Login", "Account"); }
            
         }

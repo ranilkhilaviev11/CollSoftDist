@@ -7,7 +7,7 @@ namespace DAL
     public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<FileModel> Files { get; set; }
-        public DbSet<Role> Roles { get; set; }
+    
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

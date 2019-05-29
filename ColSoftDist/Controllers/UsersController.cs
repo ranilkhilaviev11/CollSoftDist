@@ -1,4 +1,5 @@
 ﻿using ColSoftDist.Models;
+using DAL;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,10 +13,12 @@ namespace ColSoftDist.Controllers
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
+        private readonly IUser _userService;
 
-        public UsersController(UserManager<User> userManager)
+        public UsersController(UserManager<User> userManager, IUser userService)
         {
             _userManager = userManager;
+            _userService = userService;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
@@ -27,8 +30,8 @@ namespace ColSoftDist.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var user = _userService.CreateUserWithoutPass(model.Email);
+                var result = await _userService.CreateUserWithPass(user, model.Password);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -46,7 +49,7 @@ namespace ColSoftDist.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -64,13 +67,12 @@ namespace ColSoftDist.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.FindByIdAsync(model.Id);
+                var user = await _userService.FindUserByIdAsync(model.Id);
                 if (user != null)
                 {
-                    user.Email = model.Email;
-                    user.UserName = model.Email;
+                    _userService.EditUser(user, model.Email);
 
-                    var result = await _userManager.UpdateAsync(user);
+                    var result = await _userService.UserManagerUpdateAsync(user);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
@@ -89,17 +91,17 @@ namespace ColSoftDist.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
+            var user = await _userService.FindUserByIdAsync(id);
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                var result = await _userService.UserManagerDeleteAsync(user);
             }
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> ChangePassword(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
+            var user = await _userService.FindUserByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -117,7 +119,7 @@ namespace ColSoftDist.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.FindByIdAsync(model.Id);
+                var user = await _userService.FindUserByIdAsync(model.Id);
                 if (user != null)
                 {
                     var _passwordValidator = HttpContext.RequestServices

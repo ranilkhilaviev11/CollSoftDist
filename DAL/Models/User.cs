@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace DAL.Models
 {
@@ -8,5 +9,10 @@ namespace DAL.Models
         
     }
 
+    public class RolesCollectionModel
+    {
+        public IEnumerable<IdentityRole> AwailableRoles { get; set; }
+        public IEnumerable<IdentityRole> SelectedRoles { get; set; }
+    }
    
 }

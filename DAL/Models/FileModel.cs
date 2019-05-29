@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace DAL.Models
 {
@@ -9,6 +10,6 @@ namespace DAL.Models
         public string Path { get; set; }
         public string Icon { get; set; }
         public string About { get; set; } 
-        public virtual IEnumerable<Role> Roles { get; set; }
+        public string Role { get; set; }
     }
 }

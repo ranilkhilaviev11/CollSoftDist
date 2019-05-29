@@ -36,14 +36,8 @@
 
                             <label class="btn-custom" style="width: 100px; margin-right: 20px; margin-left: 20px;">Обзор<input type="file" name="uploadedFile" accept=".rar, .zip, .7z" style="display: none" id="upload" />
                             </label>
-                            <label>
-                                Менеджер
-                            </label>
-                            <input type="checkbox" />
-                            <label style="margin-left: 15px;">
-                                Штатный сотрудник
-                            </label>
-                            <input type="checkbox" />
+
+                            <input type="checkbox" value=true asp-for="IsStaff"> Staff
 
                         </div>
                         <div class="submit" style="right: 0;">

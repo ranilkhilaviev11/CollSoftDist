@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace Services
         }
         public IEnumerable<FileModel> GetAll()
         {
-            return _ctx.Files
-                .Include(file => file.Roles);
+            return _ctx.Files;
         }
 
         public FileModel GetById(int id)
@@ -26,11 +26,10 @@ namespace Services
                 .First();
         }
 
-        public IEnumerable<FileModel> GetByPost(string post)
+        public IEnumerable<FileModel> GetByRole(string role)
         {
-           return GetAll().Where(file 
-               => file.Roles
-               .Any(p => p.Name == post));
+            return _ctx.Files.Where(f => f.Role == role);
+               
         }
 
         public async Task DeleteFile(int id)
@@ -43,17 +42,19 @@ namespace Services
             }
         }
 
-        public async Task SetFile(string name,  string about, string path, string icon)
+        public async Task SetFile(string name,  string about, string path, string icon, string role)
         {
             var file = new FileModel
             {
                 Name = name,
                 About = about,
                 Path = path,
-                Icon = icon
+                Icon = icon,
+                Role = role
             };
             _ctx.Files.Add(file);
             await _ctx.SaveChangesAsync();
         }
+
     }
 }

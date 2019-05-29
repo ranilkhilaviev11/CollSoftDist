@@ -19,7 +19,6 @@
     border-radius: 0.6em;
     color: ghostwhite;
     cursor: pointer;
-    
     align-self: center;
     font-size: 1rem;
     font-weight: 400;
@@ -42,6 +41,40 @@
 
     .btn-custom:hover,
     .btn-custom:focus {
+        color: black;
+        outline: 0;
+        text-decoration: none;
+    }
+
+.btn-delete-user {
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 2px solid darkred;
+    border-radius: 0.6em;
+    color: darkred;
+    cursor: pointer;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 15px;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Arvo";
+    font-weight: 700;
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    text-decoration: none;
+}
+
+    .btn-delete-user:hover {
+        box-shadow: 0 0 40px 40px darkred inset;
+    }
+
+    .btn-delete-user:hover,
+    .btn-delete-user:focus {
         color: black;
         outline: 0;
         text-decoration: none;
@@ -119,7 +152,7 @@
 
 .download-btn {
     display: inline-block;
-    color: black;
+    color: ghostwhite;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
@@ -134,15 +167,15 @@
 
 
     .download-btn:hover {
-        background: rgba(0,0,0,.2);
+        background-color: ghostwhite;
         text-decoration: none;
         color: black;
     }
 
     .download-btn:active {
-        background: black;
+        background: white;
         text-decoration: none;
-        color: white;
+        color: black;
     }
 
 .fast-delete,
@@ -155,7 +188,6 @@
     height: 15%;
     text-anchor: middle;
     margin: 5px;
-    
 }
 
 .fast-download {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Services;
+using DAL;
 
 namespace ColSoftDist.Controllers
 {
@@ -12,13 +13,15 @@ namespace ColSoftDist.Controllers
     public class AccountController : Controller
     {
         
-        private readonly UserManager<User> _userManager;
+       
         private readonly SignInManager<User> _signInManager;
+        private readonly IUser _userService;
  
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(SignInManager<User> signInManager, IUser userService)
         {
-            _userManager = userManager;
+           
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -32,12 +35,12 @@ namespace ColSoftDist.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
+                var user = _userService.CreateUserWithoutPass(model.Email);
                 // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userService.CreateUserWithPass(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    await _userService.GetCookie(user);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -65,9 +68,9 @@ namespace ColSoftDist.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager
+                var result = await _userService
                     .PasswordSignInAsync
-                    (model.Email, model.Password, model.RememberMe, false);
+                    (model.Email, model.Password, model.RememberMe);
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению
